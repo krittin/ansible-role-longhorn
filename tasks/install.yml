@@ -1,3 +1,7 @@
+- name: label worker nodes
+  command: "kubectl label node {{ item }} node.longhorn.io/create-default-disk=true"
+  with_items: "{{ groups.workers }}"
+
 - name: download longhorn manifest
   get_url:
     url: "{{ longhorn_manifest_url }}"
