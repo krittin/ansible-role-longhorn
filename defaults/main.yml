@@ -1,0 +1,12 @@
+longhorn_prerequisites:
+  - open-iscsi
+  - nfs-common  
+  - bash
+  - curl
+  - mount
+  - grep
+  - gawk
+  - util-linux
+
+longhorn_manifest_url: https://raw.githubusercontent.com/longhorn/longhorn/v1.3.1/deploy/longhorn.yaml
+longhorn_manifest: /tmp/longhorn.yaml
