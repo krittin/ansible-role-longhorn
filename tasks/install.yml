@@ -1,0 +1,26 @@
+- name: download longhorn manifest
+  get_url:
+    url: "{{ longhorn_manifest_url }}"
+    dest: "{{ longhorn_manifest }}"
+
+- name: "apply {{ longhorn_manifest }}"
+  command: "kubectl apply -f {{ longhorn_manifest }}"
+
+- name: clean up
+  file:
+    path: "{{ longhorn_manifest }}"
+    state: absent
+
+- name: wait until longhorn ui pod is ready
+  command: kubectl wait pod -n longhorn-system -l app=longhorn-ui --for=condition=Ready --timeout=60s
+
+- name: expose longhorn web ui
+  kubernetes.core.k8s:
+    state: patched
+    name: longhorn-frontend
+    kind: Service
+    namespace: longhorn-system
+    definition:
+      spec:
+        type: LoadBalancer
+        loadBalancerIP: "{{ longhorn_ui_ip }}"

@@ -1,0 +1,6 @@
+- include_tasks: prerequisite.yml
+- include_tasks: 
+    file: install.yml
+    apply:
+      delegate_to: localhost
+      run_once: yes

@@ -1,0 +1,17 @@
+galaxy_info:
+  role_name: longhorn
+  author: krittin (https://github.com/krittin)
+  description: Install Longhorn storage on Kubernetes cluster
+
+  license: MIT
+
+  min_ansible_version: 2.12
+
+  platforms:
+  - name: Debian
+    versions:
+    - bullseye
+
+  galaxy_tags: 
+    - longhorn
+    - kubernetes

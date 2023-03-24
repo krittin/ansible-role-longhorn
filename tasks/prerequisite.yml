@@ -1,0 +1,3 @@
+- name: install longhorn prerequisites
+  package:
+    name: "{{ longhorn_prerequisites }}"
