@@ -1,3 +1,6 @@
-- include_tasks: prequisite.yml
-- include_tasks: install.yml
-  when: "'masters' in group_names"
+- include_tasks: prerequisite.yml
+- include_tasks: 
+    file: install.yml
+    apply:
+      delegate_to: localhost
+      run_once: yes
