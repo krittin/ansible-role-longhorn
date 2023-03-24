@@ -1,7 +1,3 @@
-- name: label worker nodes
-  command: "kubectl label node {{ item }} node.longhorn.io/create-default-disk=true"
-  with_items: "{{ groups.workers }}"
-
 - name: download longhorn manifest
   get_url:
     url: "{{ longhorn_manifest_url }}"
@@ -16,7 +12,7 @@
     state: absent
 
 - name: wait until longhorn ui pod is ready
-  command: kubectl wait pod -n longhorn-system -l app=longhorn-ui --for=condition=Ready
+  command: kubectl wait pod -n longhorn-system -l app=longhorn-ui --for=condition=Ready --timeout=60s
 
 - name: expose longhorn web ui
   kubernetes.core.k8s:
@@ -27,4 +23,4 @@
     definition:
       spec:
         type: LoadBalancer
-        loadBalancerIP: "{{ longhorn_ip }}"
+        loadBalancerIP: "{{ longhorn_ui_ip }}"
